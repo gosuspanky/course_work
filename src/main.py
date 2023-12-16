@@ -1,10 +1,13 @@
 from src.classes import Operation
 from src.utils import get_data
 
+
 def main():
+    # получаем данные из файла
     data = get_data()
     executed_operations = []
 
+    # переносим в новый список все данные операций, кроме непрошедших (отмененных)
     for i in range(len(data)):
         if data[i] == {}:
             continue
@@ -14,8 +17,10 @@ def main():
         else:
             continue
 
+    # Забираем последние 5 операций по переводам средств
     new_operations = executed_operations[-5:]
 
+    # запускаем обратный цикл и выводим на экран данные, соответствующие заданию
     for i in range(len(new_operations) - 1, -1, -1):
         operation = Operation(new_operations[i])
 
@@ -39,6 +44,7 @@ def main():
             print(f'{date} {description}\n'
                   f'{receiver}\n'
                   f'{amount} {currency_name}\n')
+
 
 if __name__ == '__main__':
     main()
