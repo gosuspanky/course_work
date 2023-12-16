@@ -6,7 +6,7 @@ class Operation:
     def __init__(self, operation_data):
         self.operation_data = operation_data
 
-    def new_time(self):
+    def get_date(self):
         """
         Метод переделывает формат даты
         :return: Возвращает нужную дату для вывода
@@ -18,19 +18,27 @@ class Operation:
         new_time = date_time_obj.strftime('%d.%m.%Y')
         return new_time
 
-
     def encrypt_bill(self):
         """
         Метод, использующий функцию кодирования номеров карт или счетов
         :return: возвращает кортеж строк счетов или карт операции
         """
-        sender = split_text_numbers(self.operation_data['from'])
-        receiver = split_text_numbers(self.operation_data['to'])
+        if "from" in self.operation_data:
+            sender = split_text_numbers(self.operation_data["from"])
+            receiver = split_text_numbers(self.operation_data["to"])
 
-        sender[1] = encrypt_bill_num(sender[1])
-        receiver[1] = encrypt_bill_num(receiver[1])
+            sender[1] = encrypt_bill_num(sender[1])
+            receiver[1] = encrypt_bill_num(receiver[1])
 
-        sender_new = " ".join(sender)
-        receiver_new = " ".join(receiver)
+            sender_new = " ".join(sender)
+            receiver_new = " ".join(receiver)
+
+        else:
+            sender_new = ''
+
+            receiver = split_text_numbers(self.operation_data["to"])
+            receiver[1] = encrypt_bill_num(receiver[1])
+
+            receiver_new = " ".join(receiver)
 
         return sender_new, receiver_new
