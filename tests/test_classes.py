@@ -38,4 +38,4 @@ def test_new_time():
 
 def test_encrypt_bill():
     assert operation.encrypt_bill() == ("Visa Platinum 2256 48** **** 2539", "Счет **9319")
-    assert second_operation.encrypt_bill() == ('', "Счет **2265")
+    assert second_operation.encrypt_bill() == ("Счет **2265")
