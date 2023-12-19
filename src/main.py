@@ -39,7 +39,7 @@ def main():
                   f'{amount} {currency_name}\n')
         else:
 
-            receiver = operation.encrypt_bill()[1]
+            receiver = operation.encrypt_bill()
 
             print(f'{date} {description}\n'
                   f'{receiver}\n'

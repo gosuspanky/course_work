@@ -33,12 +33,14 @@ class Operation:
             sender_new = " ".join(sender)
             receiver_new = " ".join(receiver)
 
-        else:
-            sender_new = ''
+            return sender_new, receiver_new
 
+        else:
             receiver = split_text_numbers(self.operation_data["to"])
             receiver[1] = encrypt_bill_num(receiver[1])
 
             receiver_new = " ".join(receiver)
 
-        return sender_new, receiver_new
+            return receiver_new
+
+
