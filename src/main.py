@@ -1,14 +1,16 @@
 from src.classes import Operation
 from src.utils import get_data
+import datetime
 
 
 def main():
     # получаем данные из файла
     data = get_data()
     executed_operations = []
+    sorted_list = []
 
     # переносим в новый список все данные операций, кроме непрошедших (отмененных)
-    for i in range(len(data)):
+    for i in range(len(data) - 1):
         if data[i] == {}:
             continue
 
@@ -17,14 +19,24 @@ def main():
         else:
             continue
 
-    # Забираем последние 5 операций по переводам средств
-    new_operations = executed_operations[-5:]
+    # Сортируем по датам
+    for i in range(len(executed_operations) - 1):
+        unsorted_operation = Operation(executed_operations[i])
 
-    # запускаем обратный цикл и выводим на экран данные, соответствующие заданию
-    for i in range(len(new_operations) - 1, -1, -1):
+        executed_operations[i]['date'] = unsorted_operation.get_date()
+
+    executed_operations = sorted(executed_operations, key=lambda k: '.'.join(reversed(k['date'].split('.'))))
+
+    # Берем последние пять свежих операций
+    executed_operations.reverse()
+    new_operations = executed_operations[:5]
+
+    # запускаем цикл и выводим на экран данные, соответствующие заданию
+
+    for i in range(len(new_operations)):
         operation = Operation(new_operations[i])
 
-        date = operation.get_date()
+        date = new_operations[i]['date']
         description = new_operations[i]["description"]
         amount = new_operations[i]["operationAmount"]["amount"]
         currency_name = new_operations[i]["operationAmount"]["currency"]["name"]
