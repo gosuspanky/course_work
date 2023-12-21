@@ -1,13 +1,12 @@
 from src.classes import Operation
 from src.utils import get_data
-import datetime
+
 
 
 def main():
     # получаем данные из файла
     data = get_data()
     executed_operations = []
-    sorted_list = []
 
     # переносим в новый список все данные операций, кроме непрошедших (отмененных)
     for i in range(len(data) - 1):
